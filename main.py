@@ -1,29 +1,39 @@
 import discord
-from bot_logic import gen_pass
-# Переменная intents - хранит привилегии бота
+from discord.ext import commands
+import requests
+import os
+import random
 intents = discord.Intents.default()
-# Включаем привелегию на чтение сообщений
 intents.message_content = True
-# Создаем бота в переменной client и передаем все привелегии
-client = discord.Client(intents=intents)
 
-@client.event
+bot = commands.Bot(command_prefix='$', intents=intents)
+ 
+@bot.event
 async def on_ready():
-    print(f'We have logged in as {client.user}')
+    print(f'Бот {bot.user} запущен!')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith('$прив'):
-        await message.channel.send("вечер в хату!")
-    elif message.content.startswith('$как дела?'):
-        await message.channel.send("Всё кайфово")
-    elif message.content.startswith('$мне грустно'):
-        await message.channel.send("Вот посмотри: https://www.youtube.com/watch?v=mIYoasoNa5M")
-    elif message.content.startswith('$pass'):
-        await message.channel.send(gen_pass(12))
-    else:
-        await message.channel.send(message.content)
+@bot.command()
+async def mem(ctx):
+    image_name = random.choice(os.listdir('images'))
+    with open(f'images/{image_name}', 'rb') as f:
+        # В переменную кладем файл, который преобразуется в файл библиотеки Discord!
+        picture = discord.File(f)
+   # Можем передавать файл как параметр!
+    await ctx.send(file=picture)
 
-client.run("MTE0NzgyOTYwMTY3MDgxMTcyOA.G14usP.iGCO9lB5OfrRizZkBxLCZlS8avg9U0GfUcOt2U")
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command('duck')
+async def duck(ctx):
+    '''По команде duck вызывает функцию get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+
+
+
+bot.run('MTE0NzgyOTYwMTY3MDgxMTcyOA.GDv1uz.k9SyznbzIrWFNvYMoucZTnNiD1H07vrIhGuq3E')

@@ -36,4 +36,4 @@ async def duck(ctx):
 
 
 
-bot.run('MTE0NzgyOTYwMTY3MDgxMTcyOA.GDv1uz.k9SyznbzIrWFNvYMoucZTnNiD1H07vrIhGuq3E')
+bot.run('MTE0NzgyOTYwMTY3MDgxMTcyOA.GtiCuY.l8TPhrEmQy7r-WdeBlksF4HTcWQVN5gqEfx_LA)

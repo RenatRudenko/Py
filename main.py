@@ -36,4 +36,4 @@ async def duck(ctx):
 
 
 
-bot.run('MTE0NzgyOTYwMTY3MDgxMTcyOA.GtiCuY.l8TPhrEmQy7r-WdeBlksF4HTcWQVN5gqEfx_LA)
+bot.run('token')
